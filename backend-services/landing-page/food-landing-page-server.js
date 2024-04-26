@@ -1,35 +1,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // Import the cors middleware
+const cors = require('cors');
 
 const app = express();
-const PORT = 3011;
+const port = 3001;
 
 app.use(bodyParser.json());
-
-// Use cors middleware to allow requests from all origins
 app.use(cors());
 
-let meals = [
-  { id: 1, name: 'Indomie', description: 'Delicious Indomie' },
-  { id: 2, name: 'Fish', description: 'Tasty Fish' },
-  { id: 3, name: 'Bread', description: 'Yummy Bread' }
-];
+let cart = [];
 
-app.get('/meals', (req, res) => {
-  res.json(meals);
+// Home Page - Add meal to cart
+app.post('/add-to-cart', (req, res) => {
+    const meal = req.body;
+    cart.push(meal);
+    res.status(201).json({ message: 'Meal added to cart', cart });
 });
 
-app.post('/orders', (req, res) => {
-  const { mealId } = req.body;
-  console.log('Received order for meal with ID:', mealId);
-  const selectedMeal = meals.find(meal => meal.id === mealId);
-  if (!selectedMeal) {
-    return res.status(404).json({ error: 'Meal not found' });
-  }
-  res.json({ message: 'Order created successfully', meal: selectedMeal });
+// Order Page - Get cart items
+app.get('/cart', (req, res) => {
+    res.status(200).json(cart);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });

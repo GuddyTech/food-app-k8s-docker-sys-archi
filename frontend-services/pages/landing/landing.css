@@ -1,0 +1,33 @@
+.img1 {
+    width: 500px;
+    height: 400px
+}
+
+.img2 {
+    width: 500px;
+    height: 400px
+}
+
+.img3 {
+    width: 500px;
+    height: 400px
+}
+
+.welcome {
+    color: blue;
+    display: grid;
+    place-items: center;
+
+}
+
+.options {
+    display: grid;
+    place-items: center;
+
+}
+
+.meals {
+    display: flex;
+    justify-content: space-around
+    
+}

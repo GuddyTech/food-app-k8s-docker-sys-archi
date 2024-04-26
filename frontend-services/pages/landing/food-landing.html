@@ -3,11 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./landing.css">
   <title>Food App</title>
-  <style>
-    /* Add your CSS styles here */
-    /* For simplicity, I'm not adding any styles in this example */
-  </style>
+  
 </head>
 <body>
   <!-- Navigation Bar -->
@@ -22,58 +20,64 @@
 
   <!-- Main Content -->
   <div id="home" class="section">
-    <h1>Welcome to Food App</h1>
-    <p>Order delicious meals from our wide variety of options!</p>
-    <!-- Placeholder for displaying meals -->
-    <br>
-    
-    <div id="meal-list">
-      <div class="meal">
-        <img src="https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="image of indomie in a plate">
-        <button onclick="orderMeal(1)">Order Indomie</button>
-      </div>
+  <h1 class="welcome">Welcome to our Ecommerce Food App Website</h1>
+  <h3 class="options">Order delicious meals from our wide variety of options!</h3>
+  <!-- Placeholder for displaying meals -->
+  <br>
+  
+  <div class="meals">
+    <div>
+      <img class="img1" src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Meal Image"> 
       <br>
-      <div class="meal">
-        <img src="https://images.pexels.com/photos/262959/pexels-photo-262959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="image of a fish in a plate">
-        <button onclick="orderMeal(2)">Order Fish</button>
-      </div>
-      <br>
-      <div class="meal">
-        <img src="https://images.pexels.com/photos/8601410/pexels-photo-8601410.jpeg?auto=compress&cs=tinysrgb&w=600" alt="image of bread in a plate">
-        <button onclick="orderMeal(3)">Order Bread</button>
-      </div>
-      <br>
+      <p>Price: $200</p> 
+      <button onclick="addToCart()">Order Meal</button> 
     </div>
-    <p>amet vel excepturi labore blanditiis, soluta quia doloremque debitis repellat voluptatem deserunt provident. Animi obcaecati nisi nam cumque!
-      Quae sapiente minus fugit perferendis voluptate voluptatem ipsum doloremque voluptatibus explicabo reiciendis consectetur, similique qui nobis, dolore numquam aut? Aliquam obcaecati natus earum quae voluptatum vero nulla ea at iure!
-      Vel excepturi ipsum impedit nemo accusamus atque consectetur modi iure ullam tenetur, ducimus doloremque rerum praesentium cum labore? Asperiores explicabo cum atque suscipit repellat nostrum praesentium quos eos alias. Veritatis.
-      Sit accusamus amet ipsam, velit consequatur blanditiis! Consequatur illo, vero provident soluta ratione dolorem, quis error exercitationem, cumque aspernatur reprehenderit dolore totam nihil officiis. Repellat ex numquam debitis? Quos, adipisci.
-      Quas excepturi provident ipsam consectetur voluptatem aliquam hic natus quod assumenda alias repudiandae quaerat tempore repellendus at soluta non, aliquid reiciendis ea. Dolorum fugit facere perspiciatis iste excepturi magni earum!</p>
+
+    <div>
+      <img class="img1" src="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Meal Image"> 
+      <br>
+      <p>Price: $200</p> 
+      <button onclick="addToCart()">Order Meal</button>
+    </div>
+
+    <div>
+      <img class="img1" src="https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Meal Image"> 
+      <br>
+      <p>Price: $200</p> 
+      <button onclick="addToCart()">Order Meal</button>
+    </div>
+    
+  </div>
+  
 
   <script>
-    async function orderMeal(mealId) {
-      console.log('Sending order request to backend...');
-      try {
-        const response = await fetch('http://localhost:3011/orders', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ mealId })
-        });
-        if (response.ok) {
-          console.log('Order request successful!');
-          const data = await response.json();
-          alert(data.message);
-        } else {
-          console.log('Order request failed:', response.statusText);
-          alert('Order request failed. Please try again.');
-        }
-      } catch (error) {
-        console.error('An error occurred while sending the order request:', error.message);
-        alert('An error occurred while sending the order request. Please try again later.');
+      function addToCart() {
+          const meal = {
+              name: "Your Meal Name",
+              price: 200 // Change this to the actual price
+             
+          };
+
+          fetch('http://localhost:3001/add-to-cart', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(meal),
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Failed to add meal to cart');
+              }
+              return response.json();
+          })
+          .then(data => {
+              alert(data.message);
+          })
+          .catch((error) => {
+              console.error('Error:', error);
+          });
       }
-    }
   </script>
 
 </body>

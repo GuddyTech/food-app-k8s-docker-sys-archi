@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3010;
+const PORT = 3017;
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -15,12 +15,16 @@ app.get('/cart', (req, res) => {
 });
 
 app.post('/cart', (req, res) => {
-  const newItem = req.body;
-  cartItems.push(newItem);
+  const { mealId } = req.body;
+  console.log('Received order for meal with ID:', mealId);
+  const selectedMeal = meals.find(meal => meal.id === mealId);
+  if (!selectedMeal) {
+    return res.status(404).json({ error: 'Meal not found' });
+  }
+  cartItems.push(selectedMeal); // Add selected meal to the cart
   res.json({ message: 'Item added to cart' });
 });
 
 app.listen(PORT, () => {
   console.log(`Order service is running on port ${PORT}`);
 });
-

@@ -19,51 +19,28 @@
   </nav>
 
   <!-- Main Content -->
-  <div id="order" class="section">
-    <h1>Place Your Order</h1>
-    <div id="cart-items">
-      <!-- Cart items will be dynamically added here -->
-    </div>
-  </div>
+  <h1>Your Cart</h1>
+    <ul id="cartItems"></ul>
+    
+
 
   <script>
-    async function fetchCartItems() {
-      console.log('Fetching cart items...');
-      try {
-        const response = await fetch('http://localhost:3004/cart');
-        if (!response.ok) {
-          throw new Error('Failed to fetch cart items');
-        }
-        const cartItems = await response.json();
-        console.log('Cart items:', cartItems);
-        return cartItems;
-      } catch (error) {
-        console.error('An error occurred while fetching cart items:', error.message);
-        throw error;
-      }
-    }
-
-
-    async function renderCartItems() {
-      try {
-        const cartItems = await fetchCartItems();
-        console.log('Rendering cart items:', cartItems);
-        const cartItemsContainer = document.getElementById('cart-items');
-        cartItemsContainer.innerHTML = '';
-
-        cartItems.forEach(item => {
-          const itemDiv = document.createElement('div');
-          itemDiv.textContent = item.name;
-          cartItemsContainer.appendChild(itemDiv);
+    fetch('http://localhost:3001/cart')
+    .then(response => response.json())
+    .then(data => {
+        const cartItems = document.getElementById('cartItems');
+        data.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - $${item.price}`;
+            cartItems.appendChild(li);
         });
-      } catch (error) {
-        console.error('An error occurred while rendering cart items:', error.message);
-      }
-    }
-
-
-    renderCartItems();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
   </script>
+
+ 
 
 </body>
 </html>
