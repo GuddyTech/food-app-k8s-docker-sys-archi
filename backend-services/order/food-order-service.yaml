@@ -4,9 +4,9 @@ metadata:
   name: food-order-service
 spec:
   selector:
-    app.kubernetes.io/name: nginx
+    app.kubernetes.io/name: order
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 80
   type: LoadBalancer
