@@ -77,14 +77,7 @@ li {
 
 .img1 {
     width: 500px;
-    height: 400px;
-    transition: ease-in-out .3s;
-    
-
-    &:hover {
-        box-shadow: 1px 1px 10px 10px grey;
-        transition: ease-in-out .3s;
-    }
+    height: 400px
 }
 
 .img2 {
@@ -129,4 +122,17 @@ li {
     /* margin: 40px; */
     justify-content: center;
     /* border: 1px solid rgb(25, 230, 36); */
+}
+
+.section {
+    background-color: rgb(126, 172, 209);
+    width: 280px;
+    height: 300px;
+    border: 1px solid black;
+    justify-content: center;
+    display: flex;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px grey;
+
 }

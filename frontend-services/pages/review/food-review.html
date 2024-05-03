@@ -1,70 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food App - Review</title>
-  <!-- Add your CSS styles here -->
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./review.css" />
+    <title>Food App - Review</title>
+    <!-- Add your CSS styles here -->
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <div class="logo">
+        <a href="./../landing/food-landing.html"
+          ><img
+            class="logo-svg"
+            src="./../landing/vecteezy_vintage-grilled-barbecue-logo-retro-bbq-vector-fire-grill_6735689.svg"
+            alt="logo of food app"
+        /></a>
+      </div>
+      <div class="nav-div">
+        <ul>
+          <li>
+            <a class="a-links" href="./../landing/food-landing.html">HOME</a>
+          </li>
+          <br />
+          <li>
+            <a class="a-links" href="./../signup/food-signup.html">SIGN UP</a>
+          </li>
+          <br />
+          <li>
+            <a class="a-links" href="./../order/food-order.html">ORDER</a>
+          </li>
+          <br />
+          <li>
+            <a class="a-links" href="./../review/food-review.html">REVIEW</a>
+          </li>
+          <br />
+        </ul>
+      </div>
+    </nav>
+    <br />
+    <br />
 
-  <!-- Navigation Bar -->
-  <nav>
-    <ul>
-      <li><a href="./../landing/food-landing.html">Home</a></li> <br>
-      <li><a href="./../signup/food-signup.html">Sign Up</a></li> <br>
-      <li><a href="./../order/food-order.html">Order</a></li> <br>
-      <li><a href="./../review/food-review.html">Review</a></li> <br>
-    </ul>
-  </nav>
+    <!-- Main Content -->
+    <div id="review" class="section">
+      <div>
+        <h1>Submit a Review</h1>
+        <form id="reviewForm">
+          <label for="username">Username:</label>
+          <br />
+          <input
+            type="text"
+            id="username"
+            name="username"
+            required
+          /><br /><br />
 
-  <!-- Main Content -->
-  <div id="review" class="section">
-    <h1>Submit a Review</h1>
-    <form id="reviewForm">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required><br><br>
-      
-      <label for="review">Review:</label><br>
-      <textarea id="review" name="review" rows="4" cols="50" required></textarea><br><br>
-      
-      <button type="submit">Submit Review</button>
-    </form>
-  </div>
+          <br /><br />
+          <label for="review">Review:</label><br />
+          <textarea
+            id="review"
+            name="review"
+            rows="4"
+            cols="50"
+            required
+          ></textarea
+          ><br /><br />
 
-  <script>
-    const reviewForm = document.getElementById('reviewForm');
+          <button type="submit">Submit Review</button>
+        </form>
+      </div>
+    </div>
 
-    reviewForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
+    <br />
+    <br />
+    <br />
+    <br />
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <br />
+    <br />
 
-      const formData = new FormData(reviewForm);
-      const username = formData.get('username');
-      const review = formData.get('review');
+    <div class="footer">
+      <p class="footer-p">Copyright &copy; 2024 The DevOps School</p>
+    </div>
 
-      try {
-        const response = await fetch('http://localhost:3008/reviews', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ username, review })
-        });
+    <script>
+      const reviewForm = document.getElementById("reviewForm");
 
-        if (response.ok) {
-          alert('Review submitted successfully!');
-          // Optionally, you can reset the form after successful submission
-          reviewForm.reset();
-        } else {
-          const errorMessage = await response.json();
-          alert(`Failed to submit review: ${errorMessage.error}`);
+      reviewForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(reviewForm);
+        const username = formData.get("username");
+        const review = formData.get("review");
+
+        try {
+          const response = await fetch("http://localhost:3008/reviews", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, review }),
+          });
+
+          if (response.ok) {
+            alert("Review submitted successfully!");
+            // Optionally, you can reset the form after successful submission
+            reviewForm.reset();
+          } else {
+            const errorMessage = await response.json();
+            alert(`Failed to submit review: ${errorMessage.error}`);
+          }
+        } catch (error) {
+          console.error("Error submitting review:", error.message);
+          alert(
+            "An error occurred while submitting the review. Please try again later."
+          );
         }
-      } catch (error) {
-        console.error('Error submitting review:', error.message);
-        alert('An error occurred while submitting the review. Please try again later.');
-      }
-    });
-  </script>
-
-</body>
+      });
+    </script>
+  </body>
 </html>
