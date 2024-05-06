@@ -1,36 +1,31 @@
-name: Check Branch Protection
+name: Check Main Branch Protection
 
 on:
   push:
     branches:
-      - '*'
+      - main
 
 jobs:
-  check-branch-protection:
+  check-main-branch-protection:
     runs-on: ubuntu-latest
     
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       
-      - name: Run script to check branch protection
-        id: check_branch_protection
+      - name: Run script to check main branch protection
+        id: check_main_branch_protection
         run: |
           #!/bin/bash
           
-          # Get list of branches
-          BRANCHES=$(git branch -r | awk '{print $1}' | grep -v "HEAD" | sed 's/origin\///')
+          # Check if main branch is protected
+          if ! git branch --remote --show-current | grep -q "Protected branches"; then
+            echo "Main branch is not protected!"
+            exit 1
+          fi
           
-          # Loop through branches and check if protection rules exist
-          for branch in $BRANCHES; do
-            if ! git branch --remote --show-current | grep -q "Protected branches"; then
-              echo "Branch $branch is not protected!"
-              exit 1
-            fi
-          done
-          
-          echo "All branches are protected."
+          echo "Main branch is protected."
       
-      - name: Fail if branch protection not found
-        if: ${{ steps.check_branch_protection.outputs.contains_unprotected_branch == 'true' }}
+      - name: Fail if main branch protection not found
+        if: ${{ failure() }}
         run: exit 1
