@@ -16,7 +16,7 @@ jobs:
       - name: Get branch protection status
         id: get_branch_protection
         run: |
-          branch_protection=$(curl -s -H "Authorization: token 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" https://api.github.com/repos/food-app-k8s-docker-sys-archi/branches/main/protection)
+          branch_protection=$(curl -s -H "Authorization: token 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" https://api.github.com/repos/food-app-k8s-docker-sys-archi/branches)
           echo "::set-output name=protection_enabled::$(echo $branch_protection | jq '.enabled')"
       
       - name: Fail if main branch protection not found
