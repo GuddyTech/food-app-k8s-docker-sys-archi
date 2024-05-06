@@ -16,8 +16,13 @@ jobs:
       - name: Get branch protection status
         id: get_branch_protection
         run: |
-          branch_protection=$(curl -s -H "Authorization: token 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" https://api.github.com/repos/guddytech/food-app-k8s-docker-sys-archi/branches/main/protection)
-          echo "::set-output name=protection_enabled::$(echo $branch_protection | jq '.enabled')"
+          branch_protection=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/branches/main/protection)
+          error_message=$(echo $branch_protection | jq -r '.message')
+          if [ "$error_message" = "Branch not protected" ]; then
+            echo "::set-output name=protection_enabled::false"
+          else
+            echo "::set-output name=protection_enabled::true"
+          fi
       
       - name: Fail if main branch protection not found
         if: ${{ steps.get_branch_protection.outputs.protection_enabled == 'false' }}
