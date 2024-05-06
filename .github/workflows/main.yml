@@ -17,6 +17,7 @@ jobs:
         id: get_branch_protection
         run: |
           branch_protection=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/branches/main/protection)
+          echo "Branch Protection API response: $branch_protection"
           error_message=$(echo $branch_protection | jq -r '.message')
           if [ "$error_message" = "Branch not protected" ]; then
             echo "::set-output name=protection_enabled::false"
