@@ -8,4 +8,5 @@ Protected branches are available in public repositories with GitHub Free and Git
 2. It seems not to work well with Private Repositories, because it requires an upgrade to GitHub Pro Account!
 3. Never set your secrets in hardcoded forms, instead, save them as secrets in the repository
 4. To also see from the browser:     https://api.github.com/repos/guddytech/food-app-k8s-docker-sys-archi/branches
+5. The 
  
