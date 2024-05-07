@@ -8,5 +8,6 @@ Protected branches are available in public repositories with GitHub Free and Git
 2. It seems not to work well with Private Repositories, because it requires an upgrade to GitHub Pro Account!
 3. Never set your secrets in hardcoded forms, instead, save them as secrets in the repository
 4. To also see from the browser:     https://api.github.com/repos/guddytech/food-app-k8s-docker-sys-archi/branches
-5. The 
- 
+5. The branch-protection-check.yml is used to check if there is BRANCH PROTECTION in the branch where the file is
+6. The main.yml is still the same thing, but the branch-protection-check.yml is more modern. I changed the push to be "mai"
+  so that it doesn't run 
