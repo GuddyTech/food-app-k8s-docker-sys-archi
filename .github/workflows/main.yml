@@ -3,7 +3,7 @@ name: Check Main Branch Protection
 on:
   push:
     branches:
-      - main
+      - mai
 
 jobs:
   check-main-branch-protection:
