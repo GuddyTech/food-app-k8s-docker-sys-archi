@@ -24,13 +24,13 @@ jobs:
           echo "Branch Protection API response: $branch_protection"
           error_message=$(echo $branch_protection | jq -r '.message')
           if [ "$error_message" = "Branch not protected" ]; then
-            echo "::set-output name=protection_enabled::false"
+            echo "protection_enabled=false" >> $GITHUB_ENV
           else
-            echo "::set-output name=protection_enabled::true"
+            echo "protection_enabled=true" >> $GITHUB_ENV
           fi
       
       - name: Fail if main branch protection not found
-        if: ${{ steps.get_branch_protection.outputs.protection_enabled == 'false' }}
+        if: env.protection_enabled == 'false'
         run: |
           echo "Main branch is not protected!"
           exit 1
